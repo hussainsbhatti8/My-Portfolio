@@ -277,6 +277,7 @@ a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 8px;
   border-radius: 8px;
   font-size: 13px;
   font-weight: 750;
@@ -286,6 +287,18 @@ a {
     background 0.2s ease,
     border-color 0.2s ease,
     box-shadow 0.2s ease;
+}
+
+/* SMALL SVG INSIDE BUTTONS */
+.primary-button svg,
+.secondary-button svg,
+.project-github svg,
+.projects-heading > a svg,
+.social-links a svg {
+  width: 15px;
+  height: 15px;
+  flex: 0 0 15px;
+  display: block;
 }
 
 .primary-button {
@@ -320,6 +333,9 @@ a {
 }
 
 .social-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   color: #5e5e5e;
   font-size: 12px;
   font-weight: 700;
@@ -376,63 +392,85 @@ a {
 }
 
 /* =========================================================
-   PROFILE AVATAR
+   PROFILE PHOTO
    ========================================================= */
 
-.profile-avatar {
-  width: 130px;
-  height: 130px;
-  margin: 56px auto 13px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  flex-shrink: 0;
-  border-radius: 50%;
-  background: #111111;
-  color: #ffffff;
-  font-size: 34px;
-  font-weight: 900;
-  letter-spacing: -2px;
+.profile-file-input {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.profile-photo-area {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 12px !important;
+  margin: 22px auto 18px !important;
+}
+
+.profile-photo {
+  width: 130px !important;
+  height: 130px !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  display: block !important;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.13);
 }
 
-.profile-avatar img {
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: cover;
+.profile-avatar {
+  width: 130px !important;
+  height: 130px !important;
+  margin: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+  flex-shrink: 0 !important;
+  border-radius: 50% !important;
+  background: #111111 !important;
+  color: #ffffff !important;
+  font-size: 34px !important;
+  font-weight: 900 !important;
+  letter-spacing: -2px !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.13);
 }
 
-/* =========================================================
-   ATTACH PHOTO BUTTON
-   ========================================================= */
-
-.photo-button {
-  display: block;
-  width: fit-content;
-  margin: 0 auto 20px;
-  padding: 7px 13px;
-  border: 1px solid #d4d4ce;
-  border-radius: 7px;
-  background: #f8f8f6;
-  color: #444444;
-  font-size: 10px;
-  font-weight: 750;
-  line-height: 1.2;
-  cursor: pointer;
-  transition:
-    background 0.2s ease,
-    color 0.2s ease,
-    border-color 0.2s ease,
-    transform 0.2s ease;
+.change-photo-button {
+  appearance: none !important;
+  border: 1px solid #d7d7d7 !important;
+  background: #fafafa !important;
+  color: #333333 !important;
+  border-radius: 8px !important;
+  padding: 7px 12px !important;
+  min-height: 32px !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  line-height: 1 !important;
+  letter-spacing: 0.1px !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
 }
 
-.photo-button:hover {
-  background: #111111;
-  color: #ffffff;
-  border-color: #111111;
-  transform: translateY(-1px);
+.change-photo-button:hover {
+  background: #111111 !important;
+  color: #ffffff !important;
+  border-color: #111111 !important;
+  transform: translateY(-1px) !important;
+}
+
+.photo-button-icon {
+  margin-right: 5px !important;
+  font-size: 12px !important;
 }
 
 .profile-card h3 {
@@ -481,40 +519,65 @@ a {
 }
 
 /* =========================================================
-   FLOATING CARDS
+   FLOATING AI / REACT CARDS
    ========================================================= */
 
 .floating-card {
   position: absolute;
   z-index: 3;
-  min-width: 145px;
-  padding: 13px 16px;
+  width: auto;
+  min-width: 112px;
+  padding: 10px 13px;
   display: flex;
   flex-direction: column;
   gap: 4px;
   border: 1px solid #d7d7d1;
-  border-radius: 12px;
+  border-radius: 14px;
   background: #ffffff;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.09);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
 }
 
 .floating-card strong {
+  display: block;
   font-size: 13px;
+  line-height: 1.2;
 }
 
-.floating-card span {
+.floating-card > span {
+  display: block;
   color: #888888;
   font-size: 10px;
+  line-height: 1.2;
+}
+
+.ai-card strong span,
+.react-card strong span {
+  display: inline;
+  margin-right: 3px;
+  color: inherit;
 }
 
 .react-card {
-  top: 45px;
-  left: -15px;
+  left: -42px;
+  top: 58px;
+  animation: badgeFloat 4s ease-in-out infinite;
 }
 
 .ai-card {
-  right: -15px;
-  bottom: 45px;
+  right: -32px;
+  bottom: 18px;
+  animation: badgeFloat 4s ease-in-out infinite 1s;
+}
+
+@keyframes badgeFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
 }
 
 /* =========================================================
@@ -595,20 +658,22 @@ a {
 }
 
 .skills-grid {
-  margin-top: 60px;
+  margin-top: 50px;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 15px;
+  gap: 13px;
 }
 
 .skill-card {
-  min-height: 165px;
-  padding: 22px;
+  position: relative;
+  min-height: 94px;
+  padding: 14px 15px;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  align-items: center;
+  gap: 11px;
+  overflow: hidden;
   border: 1px solid #d0d0ca;
-  border-radius: 15px;
+  border-radius: 13px;
   background: #f9f9f7;
   transition:
     transform 0.25s ease,
@@ -616,28 +681,204 @@ a {
     box-shadow 0.25s ease;
 }
 
-.skill-card:hover {
-  transform: translateY(-5px);
-  border-color: #999999;
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.06);
+/* Moving shine */
+
+.skill-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -130%;
+  width: 65%;
+  height: 100%;
+  background: linear-gradient(
+    105deg,
+    transparent,
+    rgba(255, 255, 255, 0.45),
+    transparent
+  );
+  transform: skewX(-20deg);
+  transition: left 0.6s ease;
+  pointer-events: none;
 }
 
-.skill-card > span {
+.skill-card:hover::after {
+  left: 145%;
+}
+
+.skill-card:hover {
+  transform: translateY(-4px);
+  border-color: #999999;
+  box-shadow: 0 13px 28px rgba(0, 0, 0, 0.07);
+}
+
+/* =========================================================
+   SVG SKILL ICON
+   ========================================================= */
+
+.skill-icon {
+  position: relative;
+  z-index: 1;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(91, 92, 240, 0.16);
+  border-radius: 11px;
+  background: rgba(91, 92, 240, 0.07);
+  color: #5b5cf0;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+
+  /* subtle animation */
+  animation: skillIconFloat 3.6s ease-in-out infinite;
+}
+
+/* IMPORTANT:
+   Prevent SVG from becoming huge */
+
+.skill-icon svg {
+  width: 22px;
+  height: 22px;
+  max-width: 22px;
+  max-height: 22px;
+  display: block;
+  flex: 0 0 22px;
+}
+
+/* Individual animation delays */
+
+.html-icon {
+  animation-delay: 0s;
+}
+
+.css-icon {
+  animation-delay: 0.2s;
+}
+
+.javascript-icon {
+  animation-delay: 0.4s;
+}
+
+.react-icon {
+  animation-delay: 0.6s;
+}
+
+.cpp-icon {
+  animation-delay: 0.8s;
+}
+
+.mysql-icon {
+  animation-delay: 1s;
+}
+
+.node-icon {
+  animation-delay: 1.2s;
+}
+
+.ai-icon {
+  animation-delay: 1.4s;
+}
+
+@keyframes skillIconFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+/* React icon slightly bigger */
+
+.skill-icon.react-icon svg {
+  width: 23px;
+  height: 23px;
+  max-width: 23px;
+  max-height: 23px;
+}
+
+/* JavaScript icon */
+
+.skill-icon.javascript-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* =========================================================
+   SKILL NUMBER
+   ========================================================= */
+
+.skill-number {
+  position: relative;
+  z-index: 1;
+  flex: 0 0 auto;
   color: #969690;
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 850;
 }
 
+/* =========================================================
+   SKILL TEXT
+   ========================================================= */
+
+.skill-info {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+}
+
 .skill-card h3 {
-  font-size: 20px;
-  letter-spacing: -0.5px;
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.15;
+  letter-spacing: -0.4px;
+  font-weight: 700;
 }
 
 .skill-card small {
   display: block;
-  margin-top: 5px;
+  margin-top: 3px;
   color: #888888;
   font-size: 10px;
+  line-height: 1.2;
+}
+
+/* =========================================================
+   SKILL ARROW
+   ========================================================= */
+
+.skill-arrow {
+  position: relative;
+  z-index: 1;
+  margin-left: auto;
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999999;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease,
+    color 0.25s ease;
+}
+
+.skill-arrow svg {
+  width: 14px;
+  height: 14px;
+  display: block;
+}
+
+.skill-card:hover .skill-arrow {
+  opacity: 1;
+  transform: translateX(0);
+  color: #5b5cf0;
 }
 
 /* =========================================================
@@ -657,6 +898,9 @@ a {
 
 .projects-heading > a {
   margin-bottom: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   color: #555555;
   font-size: 12px;
   font-weight: 750;
@@ -756,6 +1000,9 @@ a {
 }
 
 .project-github {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   color: #555555;
   font-size: 12px;
   font-weight: 750;
@@ -835,6 +1082,24 @@ a {
 .contact-buttons .secondary-button:hover {
   border-color: #ffffff;
   background: transparent;
+}
+
+.contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 220px;
+}
+
+.contact-details a {
+  color: #aaaaaa;
+  font-size: 11px;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.contact-details a:hover {
+  color: #ffffff;
 }
 
 /* =========================================================
@@ -958,7 +1223,7 @@ a {
 
 .dark-mode .profile-card > p,
 .dark-mode .profile-stats span,
-.dark-mode .floating-card span {
+.dark-mode .floating-card > span {
   color: #999999;
 }
 
@@ -966,18 +1231,16 @@ a {
   background: #333333;
 }
 
-/* DARK MODE PHOTO BUTTON */
-
-.dark-mode .photo-button {
-  background: #222222;
-  color: #eeeeee;
-  border-color: #3b3b3b;
+.dark-mode .change-photo-button {
+  background: #181818 !important;
+  color: #eeeeee !important;
+  border-color: #383838 !important;
 }
 
-.dark-mode .photo-button:hover {
-  background: #ffffff;
-  color: #111111;
-  border-color: #ffffff;
+.dark-mode .change-photo-button:hover {
+  background: #ffffff !important;
+  color: #111111 !important;
+  border-color: #ffffff !important;
 }
 
 .dark-mode .about-section,
@@ -1009,11 +1272,30 @@ a {
 
 .dark-mode .skill-card:hover {
   border-color: #666666;
+  box-shadow: 0 13px 28px rgba(0, 0, 0, 0.25);
 }
 
-.dark-mode .skill-card > span,
+.dark-mode .skill-card::after {
+  background: linear-gradient(
+    105deg,
+    transparent,
+    rgba(255, 255, 255, 0.07),
+    transparent
+  );
+}
+
+.dark-mode .skill-icon {
+  background: rgba(91, 92, 240, 0.12);
+  border-color: rgba(91, 92, 240, 0.22);
+}
+
+.dark-mode .skill-number,
 .dark-mode .skill-card small {
   color: #999999;
+}
+
+.dark-mode .skill-arrow {
+  color: #888888;
 }
 
 .dark-mode .tech-list span {
@@ -1028,6 +1310,14 @@ a {
 
 .dark-mode .projects-heading > a:hover,
 .dark-mode .project-github:hover {
+  color: #ffffff;
+}
+
+.dark-mode .contact-details a {
+  color: #999999;
+}
+
+.dark-mode .contact-details a:hover {
   color: #ffffff;
 }
 
@@ -1069,6 +1359,10 @@ a {
   .contact-box {
     padding: 48px;
   }
+
+  .contact-details {
+    min-width: 200px;
+  }
 }
 
 /* =========================================================
@@ -1104,6 +1398,14 @@ a {
     width: min(410px, 100%);
   }
 
+  .react-card {
+    left: -15px;
+  }
+
+  .ai-card {
+    right: -10px;
+  }
+
   .about-content {
     grid-template-columns: 1fr;
     gap: 45px;
@@ -1134,6 +1436,10 @@ a {
     width: 100%;
     flex-direction: row;
     flex-wrap: wrap;
+  }
+
+  .contact-details {
+    width: 100%;
   }
 
   .footer-inner {
@@ -1221,18 +1527,19 @@ a {
     padding: 22px;
   }
 
+  .profile-photo,
   .profile-avatar {
-    width: 115px;
-    height: 115px;
-    margin-top: 50px;
-    margin-bottom: 12px;
-    font-size: 30px;
+    width: 115px !important;
+    height: 115px !important;
   }
 
-  .photo-button {
-    margin-bottom: 18px;
-    padding: 7px 12px;
-    font-size: 9px;
+  .profile-avatar {
+    font-size: 30px !important;
+  }
+
+  .change-photo-button {
+    padding: 7px 12px !important;
+    font-size: 9px !important;
   }
 
   .profile-card h3 {
@@ -1240,18 +1547,26 @@ a {
   }
 
   .floating-card {
-    min-width: 130px;
-    padding: 11px 13px;
+    min-width: 105px;
+    padding: 8px 10px;
+  }
+
+  .floating-card strong {
+    font-size: 11px;
+  }
+
+  .floating-card > span {
+    font-size: 9px;
   }
 
   .react-card {
-    top: 18px;
-    left: 0;
+    left: 5px;
+    top: 20px;
   }
 
   .ai-card {
-    right: 0;
-    bottom: 18px;
+    right: 5px;
+    bottom: 10px;
   }
 
   .about-section,
@@ -1288,10 +1603,59 @@ a {
 
   .skills-grid {
     grid-template-columns: 1fr;
+    gap: 11px;
   }
 
   .skill-card {
-    min-height: 145px;
+    min-height: 82px;
+    padding: 12px 13px;
+    gap: 9px;
+  }
+
+  .skill-icon {
+    width: 36px;
+    height: 36px;
+    flex-basis: 36px;
+    border-radius: 10px;
+  }
+
+  /* MOBILE SVG SIZE */
+  .skill-icon svg {
+    width: 19px;
+    height: 19px;
+    max-width: 19px;
+    max-height: 19px;
+    flex-basis: 19px;
+  }
+
+  .skill-icon.react-icon svg {
+    width: 20px;
+    height: 20px;
+    max-width: 20px;
+    max-height: 20px;
+  }
+
+  .skill-card h3 {
+    font-size: 14px;
+  }
+
+  .skill-card small {
+    font-size: 9px;
+  }
+
+  .skill-number {
+    font-size: 8px;
+  }
+
+  .skill-arrow {
+    width: 22px;
+    height: 22px;
+    flex-basis: 22px;
+  }
+
+  .skill-arrow svg {
+    width: 13px;
+    height: 13px;
   }
 
   .projects-heading {
@@ -1324,6 +1688,7 @@ a {
   }
 
   .project-github {
+    justify-content: center;
     text-align: center;
   }
 
@@ -1339,6 +1704,10 @@ a {
   .contact-buttons {
     align-items: stretch;
     flex-direction: column;
+  }
+
+  .contact-details {
+    min-width: 0;
   }
 
   .footer {
@@ -1376,26 +1745,38 @@ a {
     padding: 20px;
   }
 
+  .profile-photo,
   .profile-avatar {
-    width: 105px;
-    height: 105px;
-    margin-top: 46px;
+    width: 105px !important;
+    height: 105px !important;
   }
 
-  .photo-button {
-    margin-bottom: 17px;
+  .profile-avatar {
+    font-size: 27px !important;
   }
 
   .floating-card {
-    min-width: 115px;
+    min-width: 96px;
+    padding: 7px 9px;
+    border-radius: 11px;
+  }
+
+  .floating-card strong {
+    font-size: 11px;
+  }
+
+  .floating-card > span {
+    font-size: 9px;
   }
 
   .react-card {
     left: 0;
+    top: 15px;
   }
 
   .ai-card {
     right: 0;
+    bottom: 5px;
   }
 
   .section-heading h2 {
@@ -1404,209 +1785,5 @@ a {
 
   .contact-box h2 {
     font-size: 34px;
-  }
-}
-/* =========================================================
-   PROFILE PHOTO + SMALL AI/REACT BADGES
-   ========================================================= */
-
-/* Hide the ugly browser default file input */
-.profile-file-input {
-  position: absolute !important;
-  width: 1px !important;
-  height: 1px !important;
-  padding: 0 !important;
-  margin: -1px !important;
-  overflow: hidden !important;
-  clip: rect(0, 0, 0, 0) !important;
-  white-space: nowrap !important;
-  border: 0 !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
-}
-
-/* Keep photo area clean and centered */
-.profile-photo-area {
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 12px !important;
-  margin: 22px auto 18px !important;
-}
-
-/* Profile image */
-.profile-photo {
-  width: 130px !important;
-  height: 130px !important;
-  border-radius: 50% !important;
-  object-fit: cover !important;
-  display: block !important;
-}
-
-/* HA fallback circle */
-.profile-avatar {
-  width: 130px !important;
-  height: 130px !important;
-  border-radius: 50% !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-}
-
-/* Small professional photo button */
-.change-photo-button {
-  appearance: none !important;
-  border: 1px solid #d7d7d7 !important;
-  background: #fafafa !important;
-  color: #333 !important;
-  border-radius: 8px !important;
-  padding: 7px 12px !important;
-  min-height: 32px !important;
-  font-size: 12px !important;
-  font-weight: 600 !important;
-  line-height: 1 !important;
-  letter-spacing: 0.1px !important;
-  cursor: pointer !important;
-  transition: all 0.2s ease !important;
-}
-
-.change-photo-button:hover {
-  background: #111 !important;
-  color: #fff !important;
-  border-color: #111 !important;
-  transform: translateY(-1px) !important;
-}
-
-.photo-button-icon {
-  margin-right: 5px !important;
-  font-size: 12px !important;
-}
-
-/* =========================================================
-   SMALL FLOATING AI / REACT BADGES
-   ========================================================= */
-
-.hero-card-area {
-  position: relative !important;
-}
-
-/* Both badges become compact */
-.floating-card {
-  width: auto !important;
-  min-width: 112px !important;
-  padding: 10px 13px !important;
-  border-radius: 14px !important;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08) !important;
-  z-index: 5 !important;
-}
-
-.floating-card strong {
-  display: block !important;
-  font-size: 13px !important;
-  line-height: 1.2 !important;
-}
-
-.floating-card > span {
-  display: block !important;
-  margin-top: 3px !important;
-  font-size: 10px !important;
-  line-height: 1.2 !important;
-}
-
-/* React: small and subtle */
-.react-card {
-  left: -42px !important;
-  top: 58px !important;
-}
-
-/* AI: smaller, placed around the lower side of profile */
-.ai-card {
-  right: -32px !important;
-  bottom: 18px !important;
-}
-
-/* AI icon */
-.ai-card strong span,
-.react-card strong span {
-  margin-right: 3px !important;
-}
-
-/* =========================================================
-   DARK MODE
-   ========================================================= */
-
-.dark-mode .change-photo-button {
-  background: #181818 !important;
-  color: #eee !important;
-  border-color: #383838 !important;
-}
-
-.dark-mode .change-photo-button:hover {
-  background: #fff !important;
-  color: #111 !important;
-  border-color: #fff !important;
-}
-
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
-
-@media (max-width: 950px) {
-  .react-card {
-    left: -15px !important;
-  }
-
-  .ai-card {
-    right: -10px !important;
-  }
-}
-
-@media (max-width: 700px) {
-  .floating-card {
-    min-width: 105px !important;
-    padding: 8px 10px !important;
-  }
-
-  .react-card {
-    left: 5px !important;
-    top: 20px !important;
-  }
-
-  .ai-card {
-    right: 5px !important;
-    bottom: 10px !important;
-  }
-
-  .profile-photo,
-  .profile-avatar {
-    width: 115px !important;
-    height: 115px !important;
-  }
-}
-
-@media (max-width: 420px) {
-  .floating-card {
-    min-width: 96px !important;
-    padding: 7px 9px !important;
-    border-radius: 11px !important;
-  }
-
-  .floating-card strong {
-    font-size: 11px !important;
-  }
-
-  .floating-card > span {
-    font-size: 9px !important;
-  }
-
-  .react-card {
-    left: 0 !important;
-    top: 15px !important;
-  }
-
-  .ai-card {
-    right: 0 !important;
-    bottom: 5px !important;
   }
 }
