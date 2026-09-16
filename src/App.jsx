@@ -1,461 +1,540 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import "./App.css";
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
+  const [profileImage, setProfileImage] = useState(null);
+  const fileInputRef = useRef(null);
+
+  const scrollToSection = (sectionId) => {
+    const section = document.getElementById(sectionId);
+
+    if (section) {
+      section.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  };
+
+  const handleProfileImage = (event) => {
+    const file = event.target.files?.[0];
+
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+      alert("Please select an image file.");
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      alert("Please select an image smaller than 5MB.");
+      return;
+    }
+
+    const imageUrl = URL.createObjectURL(file);
+    setProfileImage(imageUrl);
+  };
 
   return (
-    <div className={darkMode ? "app dark" : "app"}>
-
-      {/* ================= NAVBAR ================= */}
+    <div className={darkMode ? "portfolio dark-mode" : "portfolio"}>
+      {/* NAVBAR */}
       <nav className="navbar">
-        <div className="nav-container">
-
-          <a href="#home" className="logo">
-            HA<span>.</span>
-          </a>
+        <div className="navbar-inner">
+          <button
+            className="logo"
+            onClick={() => scrollToSection("home")}
+          >
+            HA.
+          </button>
 
           <div className="nav-links">
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
-            <a href="#skills">Skills</a>
-            <a href="#projects">Projects</a>
-            <a href="#contact">Contact</a>
+            <button onClick={() => scrollToSection("home")}>
+              Home
+            </button>
+
+            <button onClick={() => scrollToSection("about")}>
+              About
+            </button>
+
+            <button onClick={() => scrollToSection("skills")}>
+              Skills
+            </button>
+
+            <button onClick={() => scrollToSection("projects")}>
+              Projects
+            </button>
+
+            <button onClick={() => scrollToSection("contact")}>
+              Contact
+            </button>
           </div>
 
           <button
-            className="theme-btn"
-            onClick={() => setDarkMode(!darkMode)}
-            aria-label="Toggle theme"
+            className="theme-toggle"
+            onClick={() => setDarkMode((previous) => !previous)}
+            aria-label="Toggle dark mode"
           >
-            {darkMode ? "☀️" : "🌙"}
+            {darkMode ? "☀" : "☾"}
           </button>
-
         </div>
       </nav>
 
-      {/* ================= HERO ================= */}
+      {/* MAIN CONTENT */}
       <main>
-
-        <section id="home" className="hero">
+        {/* HERO */}
+        <section id="home" className="hero section">
           <div className="hero-container">
-
             <div className="hero-content">
-
               <div className="availability">
-                <span className="status-dot"></span>
+                <span></span>
                 Available for opportunities
               </div>
 
-              <p className="hero-small">HELLO, I'M</p>
+              <p className="hero-label">HELLO, I'M</p>
 
               <h1>
                 Hussain <span>Adil</span>
               </h1>
 
-              <h2>
-                Computer Science Student &amp; Aspiring Software Developer
-              </h2>
+              <h2>BSCS Student & Aspiring Software Developer</h2>
 
               <p className="hero-description">
-                I'm a BSCS student passionate about building modern web
-                applications, learning new technologies, and solving real-world
-                problems through software.
+                I am a Computer Science student passionate about
+                building modern web applications, learning new
+                technologies, and turning ideas into practical
+                software solutions.
               </p>
 
               <div className="hero-buttons">
-                <a href="#projects" className="btn primary-btn">
+                <button
+                  className="primary-button"
+                  onClick={() => scrollToSection("projects")}
+                >
                   View My Work →
-                </a>
+                </button>
 
-                <a href="#contact" className="btn secondary-btn">
+                <button
+                  className="secondary-button"
+                  onClick={() => scrollToSection("contact")}
+                >
                   Let's Connect
-                </a>
+                </button>
               </div>
 
               <div className="social-links">
-                <a href="#" aria-label="GitHub">GitHub ↗</a>
-                <a href="#" aria-label="LinkedIn">LinkedIn ↗</a>
-              </div>
+                <a
+                  href="https://github.com/hussainsbhatti8"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  GitHub ↗
+                </a>
 
+                <a
+                  href="https://www.linkedin.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  LinkedIn ↗
+                </a>
+              </div>
             </div>
 
-            {/* Profile Card */}
-            <div className="hero-visual">
-
+            {/* PROFILE CARD */}
+            <div className="hero-card-area">
               <div className="profile-card">
-
-                <div className="profile-image">
-                  <div className="profile-placeholder">
-                    <span>HA</span>
-                  </div>
+                <div className="card-top">
+                  <span>PROFILE</span>
+                  <span>01</span>
                 </div>
 
-                <div className="profile-info">
-                  <h3>Hussain Adil</h3>
-                  <p>BSCS Student</p>
+                {/* PROFILE PHOTO */}
+                <div className="profile-photo-area">
+                  {profileImage ? (
+                    <img
+                      src={profileImage}
+                      alt="Hussain Adil"
+                      className="profile-photo"
+                    />
+                  ) : (
+                    <div className="profile-avatar">HA</div>
+                  )}
+
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    onChange={handleProfileImage}
+                    className="profile-file-input"
+                    aria-label="Choose profile photo"
+                  />
+
+                  <button
+                    type="button"
+                    className="change-photo-button"
+                    onClick={() => fileInputRef.current?.click()}
+                  >
+                    <span className="photo-button-icon">＋</span>
+                    {profileImage ? "Change Photo" : "Attach Photo"}
+                  </button>
                 </div>
 
-                <div className="profile-line"></div>
+                <h3>Hussain Adil</h3>
 
-                <div className="stats">
+                <p>Computer Science Student</p>
 
-                  <div className="stat">
+                <div className="card-divider"></div>
+
+                <div className="profile-stats">
+                  <div>
                     <strong>04+</strong>
                     <span>Semesters</span>
                   </div>
 
-                  <div className="stat">
+                  <div>
                     <strong>02+</strong>
                     <span>Projects</span>
                   </div>
 
-                  <div className="stat">
+                  <div>
                     <strong>08+</strong>
                     <span>Skills</span>
                   </div>
-
                 </div>
-
               </div>
 
+              {/* SMALL AI BADGE */}
+              <div className="floating-card ai-card">
+                <strong>
+                  <span>✦</span> AI
+                </strong>
+                <span>Intelligent Apps</span>
+              </div>
+
+              {/* SMALL REACT BADGE */}
               <div className="floating-card react-card">
-                <span>⚛️</span>
+                <strong>
+                  <span>⚛</span> React
+                </strong>
+                <span>Frontend</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ABOUT */}
+        <section id="about" className="section about-section">
+          <div className="section-container">
+            <div className="section-heading">
+              <p>01 — ABOUT</p>
+
+              <h2>Learning, building and growing.</h2>
+            </div>
+
+            <div className="about-content">
+              <div className="about-text">
+                <p>
+                  I am currently pursuing a Bachelor of Science
+                  in Computer Science. I am interested in software
+                  development, web technologies, databases and
+                  artificial intelligence.
+                </p>
+
+                <p>
+                  I enjoy learning through practical projects and
+                  continuously improving my programming and
+                  development skills.
+                </p>
+              </div>
+
+              <div className="about-details">
                 <div>
-                  <strong>React</strong>
+                  <span>Education</span>
+                  <strong>BSCS</strong>
+                </div>
+
+                <div>
+                  <span>University</span>
+                  <strong>University of Sialkot</strong>
+                </div>
+
+                <div>
+                  <span>Focus</span>
+                  <strong>Software Development</strong>
+                </div>
+
+                <div>
+                  <span>Learning</span>
+                  <strong>React & AI</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* SKILLS */}
+        <section id="skills" className="section skills-section">
+          <div className="section-container">
+            <div className="section-heading">
+              <p>02 — SKILLS</p>
+
+              <h2>Technologies I'm working with.</h2>
+            </div>
+
+            <div className="skills-grid">
+              <div className="skill-card">
+                <span>01</span>
+                <div>
+                  <h3>HTML</h3>
                   <small>Frontend</small>
                 </div>
               </div>
 
-              <div className="floating-card ai-card">
-                <span>🤖</span>
-                <div>
-                  <strong>AI</strong>
-                  <small>Learning</small>
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-        </section>
-
-        {/* ================= ABOUT ================= */}
-        <section id="about" className="section about-section">
-
-          <div className="section-heading">
-            <span>01</span>
-            <div>
-              <p>GET TO KNOW ME</p>
-              <h2>About Me</h2>
-            </div>
-          </div>
-
-          <div className="about-grid">
-
-            <div className="about-text">
-              <h3>
-                Turning ideas into <span>digital experiences.</span>
-              </h3>
-
-              <p>
-                I'm Hussain Adil, a Computer Science student currently pursuing
-                my BSCS degree at the University of Sialkot.
-              </p>
-
-              <p>
-                I enjoy learning software development and building projects
-                that help me improve my programming and problem-solving skills.
-              </p>
-
-              <p>
-                My current interests include web development, React,
-                artificial intelligence, databases, and backend development.
-              </p>
-
-              <div className="about-highlight">
-                <span>🎓</span>
-                <div>
-                  <strong>BSCS Student</strong>
-                  <p>University of Sialkot</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="about-cards">
-
-              <div className="info-card">
-                <div className="info-icon">💻</div>
-                <h3>Web Development</h3>
-                <p>
-                  Building responsive and modern websites using HTML, CSS,
-                  JavaScript and React.
-                </p>
-              </div>
-
-              <div className="info-card">
-                <div className="info-icon">🤖</div>
-                <h3>Artificial Intelligence</h3>
-                <p>
-                  Exploring AI concepts and developing AI-powered applications
-                  to expand my technical skills.
-                </p>
-              </div>
-
-            </div>
-
-          </div>
-        </section>
-
-        {/* ================= SKILLS ================= */}
-        <section id="skills" className="section skills-section">
-
-          <div className="section-heading">
-            <span>02</span>
-            <div>
-              <p>WHAT I WORK WITH</p>
-              <h2>My Skills</h2>
-            </div>
-          </div>
-
-          <div className="skills-grid">
-
-            <div className="skill-card">
-              <div className="skill-top">
-                <span className="skill-icon">🌐</span>
-                <span>01</span>
-              </div>
-              <h3>HTML</h3>
-              <p>Semantic and structured web pages.</p>
-            </div>
-
-            <div className="skill-card">
-              <div className="skill-top">
-                <span className="skill-icon">🎨</span>
+              <div className="skill-card">
                 <span>02</span>
+                <div>
+                  <h3>CSS</h3>
+                  <small>Frontend</small>
+                </div>
               </div>
-              <h3>CSS</h3>
-              <p>Responsive layouts and modern UI styling.</p>
-            </div>
 
-            <div className="skill-card">
-              <div className="skill-top">
-                <span className="skill-icon">⚡</span>
+              <div className="skill-card">
                 <span>03</span>
+                <div>
+                  <h3>JavaScript</h3>
+                  <small>Programming</small>
+                </div>
               </div>
-              <h3>JavaScript</h3>
-              <p>Interactive and dynamic web applications.</p>
-            </div>
 
-            <div className="skill-card">
-              <div className="skill-top">
-                <span className="skill-icon">⚛️</span>
+              <div className="skill-card">
                 <span>04</span>
+                <div>
+                  <h3>React</h3>
+                  <small>Frontend</small>
+                </div>
               </div>
-              <h3>React</h3>
-              <p>Component-based modern frontend development.</p>
-            </div>
 
-            <div className="skill-card">
-              <div className="skill-top">
-                <span className="skill-icon">💻</span>
+              <div className="skill-card">
                 <span>05</span>
+                <div>
+                  <h3>C++</h3>
+                  <small>Programming</small>
+                </div>
               </div>
-              <h3>C++</h3>
-              <p>Programming fundamentals and problem solving.</p>
-            </div>
 
-            <div className="skill-card">
-              <div className="skill-top">
-                <span className="skill-icon">🗄️</span>
+              <div className="skill-card">
                 <span>06</span>
+                <div>
+                  <h3>MySQL</h3>
+                  <small>Database</small>
+                </div>
               </div>
-              <h3>MySQL</h3>
-              <p>Database design and data management.</p>
-            </div>
 
-            <div className="skill-card">
-              <div className="skill-top">
-                <span className="skill-icon">🟢</span>
+              <div className="skill-card">
                 <span>07</span>
+                <div>
+                  <h3>Node.js</h3>
+                  <small>Backend</small>
+                </div>
               </div>
-              <h3>Node.js</h3>
-              <p>Backend development with JavaScript.</p>
-            </div>
 
-            <div className="skill-card">
-              <div className="skill-top">
-                <span className="skill-icon">🤖</span>
+              <div className="skill-card">
                 <span>08</span>
+                <div>
+                  <h3>AI / Gemini</h3>
+                  <small>Artificial Intelligence</small>
+                </div>
               </div>
-              <h3>AI</h3>
-              <p>Learning AI concepts and AI application development.</p>
             </div>
-
           </div>
         </section>
 
-        {/* ================= PROJECTS ================= */}
+        {/* PROJECTS */}
         <section id="projects" className="section projects-section">
+          <div className="section-container">
+            <div className="projects-heading">
+              <div className="section-heading">
+                <p>03 — PROJECTS</p>
 
-          <div className="section-heading">
-            <span>03</span>
-            <div>
-              <p>WHAT I'VE BUILT</p>
-              <h2>Featured Projects</h2>
+                <h2>Things I've built.</h2>
+              </div>
+
+              <a
+                href="https://github.com/hussainsbhatti8"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View GitHub ↗
+              </a>
             </div>
-          </div>
 
-          <div className="projects-grid">
-
-            {/* AI CHATBOT */}
-            <article className="project-card">
-
-              <div className="project-number">01</div>
-
-              <div className="project-icon">🤖</div>
-
-              <div className="project-content">
-                <span className="project-category">
-                  AI • React • Node.js
-                </span>
-
-                <h3>AI Chatbot</h3>
-
-                <p>
-                  An AI-powered chatbot built with React and Node.js. It
-                  includes chat history, dark mode, image analysis, Markdown
-                  responses and a modern ChatGPT-style interface.
-                </p>
-
-                <div className="project-tech">
-                  <span>React</span>
-                  <span>Node.js</span>
-                  <span>Gemini AI</span>
+            <div className="projects-grid">
+              {/* AI CHATBOT */}
+              <div className="project-card">
+                <div className="project-card-top">
+                  <span>01</span>
+                  <span>AI PROJECT</span>
                 </div>
 
-                <div className="project-actions">
-                  <a href="#" className="project-btn primary-project-btn">
-                    View Project ↗
+                <div className="project-card-content">
+                  <h3>AI Chatbot</h3>
+
+                  <p>
+                    A modern AI assistant built with React and
+                    Node.js, connected with Google Gemini for
+                    intelligent conversations.
+                  </p>
+
+                  <div className="tech-list">
+                    <span>React</span>
+                    <span>Node.js</span>
+                    <span>Express</span>
+                    <span>Gemini AI</span>
+                  </div>
+                </div>
+
+                <div className="project-buttons">
+                  <a
+                    href="https://github.com/hussainsbhatti8/AI-Chatbot"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="primary-button"
+                  >
+                    View My Project →
                   </a>
 
-                  <a href="#" className="project-btn">
+                  <a
+                    href="https://github.com/hussainsbhatti8/AI-Chatbot"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="project-github"
+                  >
                     GitHub ↗
                   </a>
                 </div>
               </div>
 
-            </article>
-
-            {/* LIBRARY MANAGEMENT */}
-            <article className="project-card">
-
-              <div className="project-number">02</div>
-
-              <div className="project-icon">📚</div>
-
-              <div className="project-content">
-                <span className="project-category">
-                  Full Stack • Database
-                </span>
-
-                <h3>Library Management System</h3>
-
-                <p>
-                  A full-stack library management application for managing
-                  books, students, issued books and returns with a React
-                  frontend, Express backend and MySQL database.
-                </p>
-
-                <div className="project-tech">
-                  <span>React</span>
-                  <span>Express</span>
-                  <span>MySQL</span>
+              {/* LIBRARY MANAGEMENT */}
+              <div className="project-card">
+                <div className="project-card-top">
+                  <span>02</span>
+                  <span>FULL-STACK PROJECT</span>
                 </div>
 
-                <div className="project-actions">
-                  <a href="#" className="project-btn primary-project-btn">
-                    View Project ↗
+                <div className="project-card-content">
+                  <h3>Library Management System</h3>
+
+                  <p>
+                    A full-stack library management application
+                    for managing books, students, issuing and
+                    returning records.
+                  </p>
+
+                  <div className="tech-list">
+                    <span>React</span>
+                    <span>Node.js</span>
+                    <span>MySQL</span>
+                    <span>Express</span>
+                  </div>
+                </div>
+
+                <div className="project-buttons">
+                  <a
+                    href="https://github.com/hussainsbhatti8/Library-Management-System"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="primary-button"
+                  >
+                    View My Project →
                   </a>
 
-                  <a href="#" className="project-btn">
+                  <a
+                    href="https://github.com/hussainsbhatti8/Library-Management-System"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="project-github"
+                  >
                     GitHub ↗
                   </a>
                 </div>
               </div>
-
-            </article>
-
+            </div>
           </div>
         </section>
 
-        {/* ================= CONTACT ================= */}
-        <section id="contact" className="contact-section">
+        {/* CONTACT */}
+        <section id="contact" className="section contact-section">
+          <div className="section-container">
+            <div className="contact-box">
+              <div>
+                <p>04 — CONTACT</p>
 
-          <div className="contact-container">
+                <h2>
+                  Let's connect and build something useful.
+                </h2>
 
-            <div className="contact-heading">
-              <span>04</span>
-              <p>LET'S CONNECT</p>
-              <h2>Have a project in mind?</h2>
-              <p className="contact-description">
-                I'm always interested in learning, building new projects and
-                connecting with other developers.
-              </p>
+                <p>
+                  I'm interested in learning, collaborating on
+                  projects and exploring opportunities in software
+                  development.
+                </p>
+              </div>
+
+              <div className="contact-buttons">
+                <a
+                  href="mailto:hussains.bhatti8@gmail.com"
+                  className="primary-button"
+                >
+                  Email Me →
+                </a>
+
+                <a
+                  href="tel:03269619288"
+                  className="secondary-button"
+                >
+                  Call Me →
+                </a>
+
+                <a
+                  href="https://github.com/hussainsbhatti8"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="secondary-button"
+                >
+                  GitHub Profile ↗
+                </a>
+              </div>
+
+              <div className="contact-details">
+                <a href="mailto:hussains.bhatti8@gmail.com">
+                  ✉ hussains.bhatti8@gmail.com
+                </a>
+
+                <a href="tel:03269619288">
+                  ☎ 03269619288
+                </a>
+              </div>
             </div>
-
-            <div className="contact-cards">
-
-              <a href="mailto:your-email@example.com" className="contact-card">
-                <span>✉️</span>
-                <div>
-                  <small>Email</small>
-                  <strong>your-email@example.com</strong>
-                </div>
-              </a>
-
-              <a href="#" className="contact-card">
-                <span>💻</span>
-                <div>
-                  <small>GitHub</small>
-                  <strong>github.com</strong>
-                </div>
-              </a>
-
-              <a href="#" className="contact-card">
-                <span>🔗</span>
-                <div>
-                  <small>LinkedIn</small>
-                  <strong>linkedin.com</strong>
-                </div>
-              </a>
-
-            </div>
-
           </div>
         </section>
-
       </main>
 
-      {/* ================= FOOTER ================= */}
-      <footer>
-        <div className="footer-container">
-
+      {/* FOOTER */}
+      <footer className="footer">
+        <div className="footer-inner">
           <div>
-            <div className="footer-logo">
-              HA<span>.</span>
-            </div>
-            <p>Computer Science Student &amp; Aspiring Developer</p>
+            <strong>HA.</strong>
+            <span>Hussain Adil</span>
           </div>
 
-          <div className="footer-right">
-            <p>© 2026 Hussain Adil. All rights reserved.</p>
-            <a href="#home">Back to top ↑</a>
-          </div>
+          <p>© 2026 Hussain Adil. Built with React.</p>
 
+          <button onClick={() => scrollToSection("home")}>
+            Back to top ↑
+          </button>
         </div>
       </footer>
-
     </div>
   );
 }
